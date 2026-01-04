@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiz Answerer</string>
+    <string name="take_screenshot">Take Screenshot</string>
+    <string name="select_image">Select Image</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="processing">Processing…</string>
+    <string name="ready">Ready to capture</string>
+    <string name="error_permission">Permission denied</string>
+    <string name="error_ocr">Failed to extract text</string>
+    <string name="error_gemini">Failed to get answer from Gemini</string>
+    <string name="screenshot_channel_name">Screenshot Service</string>
+    <string name="screenshot_channel_desc">Service for capturing screenshots</string>
+    <string name="service_running">Screenshot service running</string>
+    <string name="enter_api_key">Enter your Gemini API Key</string>
+    <string name="api_key_hint">Gemini API Key</string>
+    <string name="save_api_key">Save API Key</string>
+    <string name="api_key_saved">API Key saved</string>
+    <string name="api_key_required">Please enter API key first</string>
+</resources>
