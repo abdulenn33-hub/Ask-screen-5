@@ -84,7 +84,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadApiKey() {
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
-        val apiKey = prefs.getString("gemini_api_key", "") ?: ""
+        // Default API key - pre-configured
+        val defaultApiKey = "AIzaSyDLZz0FwL2TayC-ocr9c_AOsNq6Tkqf8hQ"
+        val apiKey = prefs.getString("gemini_api_key", defaultApiKey) ?: defaultApiKey
+        
+        // If no saved key, save the default one
+        if (prefs.getString("gemini_api_key", null) == null) {
+            prefs.edit().putString("gemini_api_key", defaultApiKey).apply()
+        }
+        
         binding.etApiKey.setText(apiKey)
         if (apiKey.isNotEmpty()) {
             geminiHelper.setApiKey(apiKey)
