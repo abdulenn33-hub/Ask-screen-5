@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Screenshot Answer</string>
+    <string name="app_subtitle">Capture questions, get instant AI answers spoken aloud</string>
+    
+    <string name="api_key_label">Gemini API Key</string>
+    <string name="api_key_hint">Enter your Gemini API key</string>
+    <string name="api_key_info">Get your free API key from Google AI Studio</string>
+    
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="how_to_use">How to Use?</string>
+    
+    <string name="capture_screenshot">Capture Screenshot</string>
+    
+    <string name="features_title">Features</string>
+    <string name="features_list">• Capture any screen with one tap\n• AI-powered OCR text extraction\n• Gemini AI answers multiple choice questions\n• Text-to-speech reads answers aloud\n• Floating button works over any app</string>
+    
+    <string name="notification_title">Screenshot Answer Active</string>
+    <string name="notification_text">Tap the floating button to capture</string>
+</resources>
