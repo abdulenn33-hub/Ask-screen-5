@@ -1,0 +1,7 @@
+.git
+dist
+out
+**/.gradle
+**/build
+**/.idea
+**/.vscode
