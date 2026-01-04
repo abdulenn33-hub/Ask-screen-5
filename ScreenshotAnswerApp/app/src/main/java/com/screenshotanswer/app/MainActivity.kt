@@ -95,10 +95,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadSavedApiKey() {
-        val savedKey = ApiKeyManager.getApiKey(this)
-        if (savedKey.isNotEmpty()) {
-            binding.etApiKey.setText(savedKey)
-        }
+        // Pre-fill with default or saved API key
+        val apiKey = ApiKeyManager.getApiKey(this)
+        binding.etApiKey.setText(apiKey)
     }
 
     private fun checkAndRequestPermissions() {

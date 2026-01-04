@@ -11,11 +11,12 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.concurrent.TimeUnit
 
-class GeminiService(private val apiKey: String) {
+class GeminiService(private val apiKey: String = DEFAULT_API_KEY) {
 
     companion object {
         private const val TAG = "GeminiService"
         private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+        const val DEFAULT_API_KEY = "AIzaSyDLZz0FwL2TayC-ocr9c_AOsNq6Tkqf8hQ"
     }
 
     private val client = OkHttpClient.Builder()

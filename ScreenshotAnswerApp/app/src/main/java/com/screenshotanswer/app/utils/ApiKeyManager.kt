@@ -8,6 +8,7 @@ import androidx.security.crypto.MasterKey
 object ApiKeyManager {
     private const val PREFS_NAME = "screenshot_answer_prefs"
     private const val KEY_API_KEY = "gemini_api_key"
+    private const val DEFAULT_API_KEY = "AIzaSyDLZz0FwL2TayC-ocr9c_AOsNq6Tkqf8hQ"
 
     private fun getPrefs(context: Context): SharedPreferences {
         return try {
@@ -33,8 +34,11 @@ object ApiKeyManager {
     }
 
     fun getApiKey(context: Context): String {
-        return getPrefs(context).getString(KEY_API_KEY, "") ?: ""
+        val savedKey = getPrefs(context).getString(KEY_API_KEY, "") ?: ""
+        return if (savedKey.isNotEmpty()) savedKey else DEFAULT_API_KEY
     }
+    
+    fun getDefaultApiKey(): String = DEFAULT_API_KEY
 
     fun clearApiKey(context: Context) {
         getPrefs(context).edit().remove(KEY_API_KEY).apply()
