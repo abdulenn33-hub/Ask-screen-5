@@ -73,6 +73,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnTakeScreenshot" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/start_background_mode"
+        android:padding="16dp"
+        app:icon="@android:drawable/ic_media_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectImage" />
+
+    <TextView
+        android:id="@+id/tvBackgroundInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/background_mode_info"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartBackground" />
+
     <ImageView
         android:id="@+id/ivPreview"
         android:layout_width="0dp"
@@ -84,8 +109,8 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSelectImage"
-        app:layout_constraintHeight_percent="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBackgroundInfo"
+        app:layout_constraintHeight_percent="0.2" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -95,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivPreview"
-        app:layout_constraintHeight_percent="0.35">
+        app:layout_constraintHeight_percent="0.3">
 
         <TextView
             android:id="@+id/tvResults"

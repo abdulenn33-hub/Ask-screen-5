@@ -13,6 +13,8 @@
   3. 📝 Identifies multiple-choice questions
   4. 🤖 Gets answers from Google Gemini AI
   5. 🔊 Reads questions and answers out loud
+  6. 🎯 NEW! Background mode with floating button
+  7. 🔔 Works in any app without switching
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -49,11 +51,20 @@
 
 📱 FIRST USE:
 
+  Regular Mode:
   1. Launch app → API key already loaded
   2. Grant permissions (screenshots, media, notifications)
   3. Tap "TAKE SCREENSHOT" or "SELECT IMAGE"
   4. Wait 10-20 seconds for processing
   5. View results and hear answers!
+
+  Background Mode (NEW!):
+  1. Tap "START BACKGROUND MODE"
+  2. Grant overlay permission
+  3. Grant screen capture permission
+  4. Floating button appears
+  5. Use from any app - tap button to capture!
+  6. Get results in notifications + audio
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

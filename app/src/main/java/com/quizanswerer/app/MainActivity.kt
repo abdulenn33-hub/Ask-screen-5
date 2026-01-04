@@ -10,12 +10,11 @@ import android.media.projection.MediaProjectionManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.mlkit.vision.common.InputImage
@@ -33,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var questionParser: QuestionParser
     private var tts: TextToSpeech? = null
     private var isProcessing = false
+    private var isBackgroundServiceRunning = false
+    private var backgroundMediaProjectionData: Intent? = null
+    private var backgroundMediaProjectionResultCode: Int = -1
 
     private val screenshotLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -40,6 +42,30 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.let { data ->
                 startScreenshotService(data)
+            }
+        }
+    }
+
+    private val backgroundScreenshotLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.let { data ->
+                backgroundMediaProjectionData = data
+                backgroundMediaProjectionResultCode = Activity.RESULT_OK
+                startBackgroundService()
+            }
+        }
+    }
+
+    private val overlayPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.canDrawOverlays(this)) {
+                requestBackgroundScreenshotPermission()
+            } else {
+                Toast.makeText(this, R.string.overlay_permission_required, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -124,6 +150,70 @@ class MainActivity : AppCompatActivity() {
             }
             imagePicker.launch("image/*")
         }
+
+        binding.btnStartBackground.setOnClickListener {
+            if (binding.etApiKey.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, R.string.api_key_required, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            if (isBackgroundServiceRunning) {
+                stopBackgroundService()
+            } else {
+                checkOverlayPermissionAndStart()
+            }
+        }
+    }
+
+    private fun checkOverlayPermissionAndStart() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                overlayPermissionLauncher.launch(intent)
+                return
+            }
+        }
+        requestBackgroundScreenshotPermission()
+    }
+
+    private fun requestBackgroundScreenshotPermission() {
+        val projectionManager = getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        backgroundScreenshotLauncher.launch(projectionManager.createScreenCaptureIntent())
+    }
+
+    private fun startBackgroundService() {
+        val serviceIntent = Intent(this, BackgroundQuizService::class.java).apply {
+            putExtra(BackgroundQuizService.EXTRA_RESULT_CODE, backgroundMediaProjectionResultCode)
+            putExtra(BackgroundQuizService.EXTRA_DATA, backgroundMediaProjectionData)
+        }
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent)
+        } else {
+            startService(serviceIntent)
+        }
+        
+        isBackgroundServiceRunning = true
+        binding.btnStartBackground.text = getString(R.string.stop_background_mode)
+        binding.btnStartBackground.setIconResource(android.R.drawable.ic_media_pause)
+        binding.tvStatus.text = getString(R.string.background_running)
+        Toast.makeText(this, R.string.background_running, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun stopBackgroundService() {
+        val serviceIntent = Intent(this, BackgroundQuizService::class.java).apply {
+            action = BackgroundQuizService.ACTION_STOP
+        }
+        startService(serviceIntent)
+        
+        isBackgroundServiceRunning = false
+        binding.btnStartBackground.text = getString(R.string.start_background_mode)
+        binding.btnStartBackground.setIconResource(android.R.drawable.ic_media_play)
+        binding.tvStatus.text = getString(R.string.background_stopped)
+        Toast.makeText(this, R.string.background_stopped, Toast.LENGTH_SHORT).show()
     }
 
     private fun saveApiKey(apiKey: String) {
@@ -305,5 +395,8 @@ class MainActivity : AppCompatActivity() {
         
         // Stop screenshot service if running
         stopService(Intent(this, ScreenshotService::class.java))
+        
+        // Note: We don't stop background service on destroy
+        // so it continues running in the background
     }
 }

@@ -10,6 +10,8 @@ An Android application that captures screenshots, extracts multiple-choice quest
 - 🤖 **AI-Powered Answers**: Get correct answers using Google Gemini AI
 - 🔊 **Text-to-Speech**: Hear questions and answers read aloud automatically
 - 📱 **Multiple Choice Support**: Automatically detects and parses multiple-choice questions
+- 🎯 **Background Mode**: NEW! Floating button works in any app - no switching needed
+- 🔔 **Smart Notifications**: Get answers in notifications while using other apps
 
 ## Prerequisites
 
@@ -57,7 +59,9 @@ In Android Studio:
 
 ## How to Use
 
-### First Time Setup
+### Mode 1: Regular Mode (In-App)
+
+**First Time Setup**
 
 1. **Enter API Key**: 
    - On first launch, enter your Gemini API key in the text field at the top
@@ -82,7 +86,7 @@ In Android Studio:
 2. Choose an image containing multiple-choice questions from your gallery
 3. The app will automatically process it
 
-### Results
+### Results (Regular Mode)
 
 After processing:
 - The screenshot/image preview will appear
@@ -92,6 +96,50 @@ After processing:
   - Gemini AI provides the correct answer
   - Text-to-Speech reads the question and answer aloud
 - All results are displayed in the scrollable text area
+
+---
+
+### Mode 2: Background Mode (NEW! 🎉)
+
+**What is Background Mode?**
+- Adds a **floating camera button** that stays on top of all apps
+- Capture and answer questions **without leaving** your quiz app
+- Get results via **notifications** and **audio**
+- Perfect for taking quizzes in browsers, PDFs, or other apps
+
+**How to Enable:**
+
+1. **Start Background Mode**:
+   - Open Quiz Answerer app
+   - Tap "START BACKGROUND MODE" button
+   - Grant "Display over other apps" permission
+   - Grant screen capture permission
+   - App adds a floating purple camera button
+
+2. **Use from Any App**:
+   - The floating button stays visible everywhere
+   - Open your quiz/study app (browser, PDF reader, etc.)
+   - When you see a question, tap the floating button
+   - Wait 10-20 seconds for processing
+
+3. **Get Results**:
+   - **Notification** shows answers (expandable)
+   - **Audio** reads questions and answers aloud
+   - No need to switch back to app!
+
+4. **Stop Background Mode**:
+   - Open Quiz Answerer app
+   - Tap "STOP BACKGROUND MODE"
+   - OR tap "Stop" in the notification
+
+**Benefits:**
+- ✅ No app switching needed
+- ✅ Works in browsers, PDFs, any app
+- ✅ Floating button always accessible
+- ✅ Results via notification + audio
+- ✅ Faster workflow for multiple questions
+
+**See [BACKGROUND_MODE_GUIDE.md](BACKGROUND_MODE_GUIDE.md) for detailed instructions!**
 
 ## App Architecture
 

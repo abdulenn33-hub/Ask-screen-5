@@ -17,4 +17,10 @@
     <string name="save_api_key">Save API Key</string>
     <string name="api_key_saved">API Key saved</string>
     <string name="api_key_required">Please enter API key first</string>
+    <string name="start_background_mode">Start Background Mode</string>
+    <string name="stop_background_mode">Stop Background Mode</string>
+    <string name="background_mode_info">Background mode adds a floating button. Use it from any app!</string>
+    <string name="background_running">Background mode active</string>
+    <string name="background_stopped">Background mode stopped</string>
+    <string name="overlay_permission_required">Overlay permission needed for floating button</string>
 </resources>
